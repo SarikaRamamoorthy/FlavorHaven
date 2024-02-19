@@ -1,5 +1,5 @@
 package DatabaseModel;
 
-public class DishRelation {
+public class Dishes {
     
 }

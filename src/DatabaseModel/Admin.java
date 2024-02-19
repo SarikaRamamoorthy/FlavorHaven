@@ -1,5 +1,5 @@
 package DatabaseModel;
 
-public class TypeRelation {
+public class Admin {
     
 }

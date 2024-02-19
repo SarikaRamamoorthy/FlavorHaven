@@ -1,5 +1,5 @@
 package DatabaseModel;
 
-public interface Relation {
+public class Variety {
     
 }

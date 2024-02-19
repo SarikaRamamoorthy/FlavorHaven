@@ -1,5 +1,5 @@
 package DatabaseModel;
 
-public class TableRelation {
+public class Order {
     
 }

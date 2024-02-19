@@ -1,5 +1,5 @@
 package DatabaseModel;
 
-public class OrderRelation {
+public class Desk {
     
 }

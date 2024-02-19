@@ -1,6 +1,4 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is a restaurant desk interface with an admin and a desk interface 
 
 ## Folder Structure
 

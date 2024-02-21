@@ -7,7 +7,7 @@ import java.util.HashMap;
 import DatabaseModel.Admin;
 import Utility.ExceptionHandler;
 
-public class AdminInfoRelation extends Relation{
+public class AdminInfoRelation extends Relation {
 
     private static ArrayList<Admin> admins;
 
@@ -25,12 +25,12 @@ public class AdminInfoRelation extends Relation{
         // Initializing admin relation
         initializeAdmins();
     }
-    
+
     private static void initializeAdmins() {
-        
+
         try {
             ResultSet results = DBConnection.excecuteSelect("*", getTableName(), null);
-            while(results.next()) {
+            while (results.next()) {
                 Admin admin = new Admin(results.getInt(1), results.getString(2), results.getString(3));
                 admins.add(admin);
             }

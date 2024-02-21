@@ -14,7 +14,7 @@ public class DBConnection {
     private static Statement stmt = null;
 
     public static void startConnection() {
-        if(con == null) {
+        if (con == null) {
             establishConnection();
         }
     }
@@ -29,10 +29,10 @@ public class DBConnection {
         }
     }
 
-    public static ResultSet excecuteSelect (String columnNames, String tableName, String whereCondition) {
-        String query = "SELECT "+columnNames+" FROM "+tableName;
-        if(whereCondition != null){
-            query += " WHERE "+whereCondition;
+    public static ResultSet excecuteSelect(String columnNames, String tableName, String whereCondition) {
+        String query = "SELECT " + columnNames + " FROM " + tableName;
+        if (whereCondition != null) {
+            query += " WHERE " + whereCondition;
         }
         ResultSet res = null;
         try {
@@ -44,5 +44,4 @@ public class DBConnection {
         return res;
     }
 
-    
 }

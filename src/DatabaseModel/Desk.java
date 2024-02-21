@@ -19,11 +19,10 @@ public class Desk {
         }
     }
 
-    private void setDeskIdHandler(int deskId) throws Exception{
-        if(deskId >= 1) {
-            this.deskId = deskId;       
-        }
-        else {
+    private void setDeskIdHandler(int deskId) throws Exception {
+        if (deskId >= 1) {
+            this.deskId = deskId;
+        } else {
             throw new Exception("Desk Id is invalid");
         }
     }
@@ -40,11 +39,10 @@ public class Desk {
         }
     }
 
-    private void setDeskNameHandler(String deskName) throws Exception{
-        if(deskName != null && !deskName.isEmpty()) {
+    private void setDeskNameHandler(String deskName) throws Exception {
+        if (deskName != null && !deskName.isEmpty()) {
             this.deskName = deskName;
-        }
-        else {
+        } else {
             throw new Exception("Desk Name is invalid");
         }
     }
@@ -56,5 +54,5 @@ public class Desk {
     public void setReserved(boolean reserved) {
         this.reserved = reserved;
     }
-    
+
 }

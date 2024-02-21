@@ -11,7 +11,6 @@ class Relation {
     private static String tableName = "";
     private static HashMap<Integer, String> tableAttributes = null;
 
-
     public static String getTableName() {
         return tableName;
     }
@@ -25,10 +24,9 @@ class Relation {
     }
 
     private static void setTableNameHandler(String tableName) throws Exception {
-        if(tableName != null && (!tableName.isEmpty())) {
+        if (tableName != null && (!tableName.isEmpty())) {
             Relation.tableName = tableName;
-        }
-        else {
+        } else {
             throw new Exception("Table Name is Invalid");
         }
     }
@@ -45,11 +43,10 @@ class Relation {
         }
     }
 
-    private static void setTableAttributesHandler(HashMap<Integer, String> tableAttributes) throws Exception{
-        if(tableAttributes.size() != 0 && tableAttributes != null){
+    private static void setTableAttributesHandler(HashMap<Integer, String> tableAttributes) throws Exception {
+        if (tableAttributes.size() != 0 && tableAttributes != null) {
             Relation.tableAttributes = tableAttributes;
-        }
-        else {
+        } else {
             throw new Exception("Table Attributes are invalid");
         }
     }
@@ -67,7 +64,7 @@ class Relation {
                 columnNames.add(data.getColumnName(i));
             }
 
-            if(columnNames.isEmpty()){
+            if (columnNames.isEmpty()) {
                 throw new Exception("Table columns empty");
             }
         } catch (Exception e) {
@@ -75,5 +72,5 @@ class Relation {
         }
 
         return columnNames;
-    } 
+    }
 }

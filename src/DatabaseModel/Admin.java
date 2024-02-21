@@ -26,10 +26,9 @@ public class Admin {
     }
 
     private void setAdminIdHandler(int adminId) throws Exception {
-        if(adminId >= 1) {
+        if (adminId >= 1) {
             this.adminId = adminId;
-        }
-        else {
+        } else {
             throw new Exception("Admin Id is invalid");
         }
     }
@@ -46,11 +45,10 @@ public class Admin {
         }
     }
 
-    private void setAdminUserNameHandler (String adminUserName) throws Exception  {
-        if((adminUserName != null) && (!adminUserName.isEmpty())) {
+    private void setAdminUserNameHandler(String adminUserName) throws Exception {
+        if ((adminUserName != null) && (!adminUserName.isEmpty())) {
             this.adminUserName = adminUserName;
-        }
-        else {
+        } else {
             throw new Exception("User Name is invalid");
         }
     }
@@ -67,11 +65,10 @@ public class Admin {
         }
     }
 
-    private void setAdminPasswordHandler(String adminPassword) throws Exception{
-        if(adminPassword != null && !adminPassword.isEmpty()) {
+    private void setAdminPasswordHandler(String adminPassword) throws Exception {
+        if (adminPassword != null && !adminPassword.isEmpty()) {
             this.adminPassword = adminPassword;
-        }
-        else {
+        } else {
             throw new Exception("Admin password invalid");
         }
     }
@@ -79,6 +76,6 @@ public class Admin {
     @Override
     public boolean equals(Object obj) {
         Admin admin = (Admin) obj;
-        return this.getAdminUserName().equals(admin.getAdminUserName()) && this.getAdminPassword().equals(admin.getAdminPassword());
+        return this.adminUserName.equals(admin.adminUserName) && this.adminPassword.equals(admin.adminPassword);
     }
 }

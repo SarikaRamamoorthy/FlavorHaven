@@ -20,11 +20,10 @@ public class Order {
         }
     }
 
-    private void setDeskIdHandler(int deskId) throws Exception{
-        if(deskId >= 1) {
-            this.deskId = deskId;       
-        }
-        else {
+    private void setDeskIdHandler(int deskId) throws Exception {
+        if (deskId >= 1) {
+            this.deskId = deskId;
+        } else {
             throw new Exception("Desk Id is invalid");
         }
     }
@@ -41,11 +40,10 @@ public class Order {
         }
     }
 
-    private void setDishIdHandler(int dishId) throws Exception{
-        if(dishId >= 1) {
-            this.dishId = dishId;       
-        }
-        else {
+    private void setDishIdHandler(int dishId) throws Exception {
+        if (dishId >= 1) {
+            this.dishId = dishId;
+        } else {
             throw new Exception("Dish Id is invalid");
         }
     }
@@ -62,11 +60,10 @@ public class Order {
         }
     }
 
-    private void setQuantityHandler(int quantity) throws Exception{
-        if(quantity >= 1) {
-            this.quantity = quantity;       
-        }
-        else {
+    private void setQuantityHandler(int quantity) throws Exception {
+        if (quantity >= 1) {
+            this.quantity = quantity;
+        } else {
             throw new Exception("Quantity is invalid");
         }
     }

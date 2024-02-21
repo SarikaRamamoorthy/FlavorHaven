@@ -2,11 +2,21 @@ package DatabaseModel;
 
 import Utility.ExceptionHandler;
 
-public class Dishes {
+public class Dish {
+    // to seperate dish parameters
+    public static final String seperator = "&";
+
     private int dishId;
     private String dishName;
     private int price;
     private int typeId;
+
+    public Dish(int dishId, String dishName, int price, int typeId) {
+        setDishId(dishId);
+        setDishName(dishName);
+        setPrice(price);
+        setTypeId(typeId);
+    }
 
     public int getDishId() {
         return dishId;
@@ -20,11 +30,10 @@ public class Dishes {
         }
     }
 
-    private void setDishIdHandler(int dishId) throws Exception{
-        if(dishId >= 1) {
-            this.dishId = dishId;       
-        }
-        else {
+    private void setDishIdHandler(int dishId) throws Exception {
+        if (dishId >= 1) {
+            this.dishId = dishId;
+        } else {
             throw new Exception("Dish Id is invalid");
         }
     }
@@ -41,11 +50,10 @@ public class Dishes {
         }
     }
 
-    private void setDishNameHandler(String dishName) throws Exception{
-        if(dishName != null && !dishName.isEmpty()) {
+    private void setDishNameHandler(String dishName) throws Exception {
+        if (dishName != null && !dishName.isEmpty()) {
             this.dishName = dishName;
-        }
-        else {
+        } else {
             throw new Exception("Dish Name is invalid");
         }
     }
@@ -62,11 +70,10 @@ public class Dishes {
         }
     }
 
-    private void setPriceHandler(int price) throws Exception{
-        if(price >= 0) {
-            this.price = price;       
-        }
-        else {
+    private void setPriceHandler(int price) throws Exception {
+        if (price >= 0) {
+            this.price = price;
+        } else {
             throw new Exception("Price is invalid");
         }
     }
@@ -83,13 +90,22 @@ public class Dishes {
         }
     }
 
-    private void setTypeIdHandler(int typeId) throws Exception{
-        if(typeId >= 1) {
-            this.typeId = typeId;       
-        }
-        else {
+    private void setTypeIdHandler(int typeId) throws Exception {
+        if (typeId >= 1) {
+            this.typeId = typeId;
+        } else {
             throw new Exception("Type Id is invalid");
         }
     }
-    
+
+    @Override
+    public String toString() {
+        return this.dishId + seperator + this.dishName + seperator + this.price + seperator + this.typeId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Dish dish = (Dish) obj;
+        return this.dishId == dish.dishId;
+    }
 }

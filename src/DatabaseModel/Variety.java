@@ -18,11 +18,10 @@ public class Variety {
         }
     }
 
-    private void setTypeIdHandler(int typeId) throws Exception{
-        if(typeId >= 1) {
-            this.typeId = typeId;       
-        }
-        else {
+    private void setTypeIdHandler(int typeId) throws Exception {
+        if (typeId >= 1) {
+            this.typeId = typeId;
+        } else {
             throw new Exception("Type Id is invalid");
         }
     }
@@ -39,11 +38,10 @@ public class Variety {
         }
     }
 
-    private void setTypeNameHandler(String typeName) throws Exception{
-        if(typeName != null && !typeName.isEmpty()) {
+    private void setTypeNameHandler(String typeName) throws Exception {
+        if (typeName != null && !typeName.isEmpty()) {
             this.typeName = typeName;
-        }
-        else {
+        } else {
             throw new Exception("Type Name is invalid");
         }
     }

@@ -1,5 +1,4 @@
 import DatabaseAccessObjects.DBConnection;
-import Utility.ExceptionHandler;
 import Views.AdminView;
 
 public class App {  

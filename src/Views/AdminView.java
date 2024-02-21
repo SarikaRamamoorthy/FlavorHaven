@@ -1,6 +1,10 @@
 package Views;
 
+import com.jakewharton.fliptables.FlipTable;
+
 import Controllers.AdminInfoController;
+import Controllers.DishesController;
+import Controllers.Table;
 import Utility.ExceptionHandler;
 
 public class AdminView implements Screen {
@@ -13,14 +17,12 @@ public class AdminView implements Screen {
             System.out.println("2. Exit");
             try {
                 int option = Integer.parseInt(console.readLine("Choose (1/2): "));
-                if(option == 1) {
+                if (option == 1) {
                     loginScreen();
-                }
-                else if(option == 2) {
+                } else if (option == 2) {
                     console.readLine("Exiting Application ... (Press Enter)");
                     break;
-                }
-                else {
+                } else {
                     ExceptionHandler.invalidOptionException("Choose from (1/2)");
                 }
             } catch (Exception e) {
@@ -37,13 +39,12 @@ public class AdminView implements Screen {
         System.out.println();
         System.out.print("Password : ");
         String password = String.valueOf(console.readPassword());
-        
+
         boolean result = AdminInfoController.verifyLogin(userName, password);
-        if(result) {
+        if (result) {
             console.readLine("Login Successful Press Enter to Continue");
             adminOperations();
-        }
-        else {
+        } else {
             System.out.println("Login Failed Press Enter to Continue");
         }
     }
@@ -58,23 +59,29 @@ public class AdminView implements Screen {
             System.out.println("5. Exit");
             try {
                 int option = Integer.parseInt(console.readLine("Choose from (1/2/3/4/5): "));
-                if(option == 1) {
+                if (option == 1) {
                     // Display dishes
+
+                    Table table = DishesController.returnAllDishes();
+                    System.out.println(FlipTable.of(table.getHeaders(), table.getData()));
+                    console.readLine("Press Enter");
                 }
 
-                else if(option == 2) {
+                else if (option == 2) {
                     // View All desks
+
+                    
                 }
 
-                else if(option == 3) {
+                else if (option == 3) {
                     // View unserved orders
                 }
 
-                else if(option == 4) {
+                else if (option == 4) {
                     // View unprocessed bills
                 }
 
-                else if(option == 5) {
+                else if (option == 5) {
                     break;
                 }
 
@@ -82,7 +89,9 @@ public class AdminView implements Screen {
                     ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");
                 }
             } catch (Exception e) {
-                ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");;
+                e.printStackTrace();
+                ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");
+                ;
             }
         }
     }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Utility.Envir;
 import Utility.ExceptionHandling;
 
 public class DBConnection {
@@ -20,8 +21,8 @@ public class DBConnection {
 
     private static void establishConnection() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/flavorhaven","root","123456789");
+            Class.forName(Envir.DRIVER_CLASS);
+            con = DriverManager.getConnection(Envir.URL, Envir.USER, Envir.PASSWORD);
             stmt = con.createStatement();
         } catch (Exception e) {
             ExceptionHandling.specialExceptions(e.getMessage());

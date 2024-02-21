@@ -1,0 +1,29 @@
+package Views;
+
+/**
+ * Screen
+ */
+public interface Screen {
+    
+    default void decor() {
+        System.out.println("\r\n" + //
+        " ____  __     __   _  _   __  ____    _  _   __   _  _  ____  __ _ \r\n" + //
+        "(  __)(  )   / _\\ / )( \\ /  \\(  _ \\  / )( \\ / _\\ / )( \\(  __)(  ( \\\r\n" + //
+        " ) _) / (_/\\/    \\\\ \\/ /(  O ))   /  ) __ (/    \\\\ \\/ / ) _) /    /\r\n" + //
+        "(__)  \\____/\\_/\\_/ \\__/  \\__/(__\\_)  \\_)(_/\\_/\\_/ \\__/ (____)\\_)__)\r\n" + //
+        "");
+    }
+
+    default void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    default void clearLine(int lineCount){
+        for (int i = 0; i < lineCount; i++) {
+            System.out.print(String.format("\033[%dA",1));
+            System.out.print("\033[2K");
+        }
+    }
+    
+} 

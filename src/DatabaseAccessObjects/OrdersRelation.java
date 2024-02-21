@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class OrdersRelation extends Relation {
     static {
-        setTableName("OrdersRelation");
+        setTableName("orders");
         ArrayList<String> columnNames = getColumnNames(getTableName());
         HashMap<Integer, String> map = new HashMap<>();
         for (int i = 0; i < columnNames.size(); i++) {

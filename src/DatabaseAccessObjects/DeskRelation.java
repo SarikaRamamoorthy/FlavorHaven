@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class DeskRelation extends Relation {
     static {
-        setTableName("DeskRelation");
+        setTableName("desk");
         ArrayList<String> columnNames = getColumnNames(getTableName());
         HashMap<Integer,String> map = new HashMap<>();
         for (int i = 0; i < columnNames.size(); i++) {

@@ -7,6 +7,12 @@ public class Admin {
     private String adminUserName;
     private String adminPassword;
 
+    public Admin(int adminid, String adminUserName, String adminPassword) {
+        setAdminId(adminid);
+        setAdminUserName(adminUserName);
+        setAdminPassword(adminPassword);
+    }
+
     public int getAdminId() {
         return adminId;
     }

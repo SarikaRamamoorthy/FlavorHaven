@@ -1,6 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class Variety {
     private int typeId;
@@ -14,7 +14,7 @@ public class Variety {
         try {
             setTypeIdHandler(typeId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class Variety {
         try {
             setTypeNameHandler(typeName);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 

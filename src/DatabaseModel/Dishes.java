@@ -1,6 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class Dishes {
     private int dishId;
@@ -16,7 +16,7 @@ public class Dishes {
         try {
             setDishIdHandler(dishId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class Dishes {
         try {
             setDishNameHandler(dishName);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class Dishes {
         try {
             setPriceHandler(price);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class Dishes {
         try {
             setTypeIdHandler(typeId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 

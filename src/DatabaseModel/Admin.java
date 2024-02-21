@@ -1,6 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class Admin {
     private int adminId;
@@ -21,7 +21,7 @@ public class Admin {
         try {
             setAdminIdHandler(adminId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class Admin {
         try {
             setAdminUserNameHandler(adminUserName);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class Admin {
         try {
             setAdminPasswordHandler(adminPassword);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import DatabaseModel.Admin;
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class AdminInfoRelation extends Relation{
 
@@ -24,7 +24,6 @@ public class AdminInfoRelation extends Relation{
 
         // Initializing admin relation
         initializeAdmins();
-        System.out.println("AdminInfoRelation Class Loaded");
     }
     
     private static void initializeAdmins() {
@@ -36,7 +35,7 @@ public class AdminInfoRelation extends Relation{
                 admins.add(admin);
             }
         } catch (Exception e) {
-            ExceptionHandling.emptyTableException(getTableName());
+            ExceptionHandler.emptyTableException(getTableName());
         }
 
     }

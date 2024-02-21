@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Utility.Envir;
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class DBConnection {
     private static Connection con = null;
@@ -25,7 +25,7 @@ public class DBConnection {
             con = DriverManager.getConnection(Envir.URL, Envir.USER, Envir.PASSWORD);
             stmt = con.createStatement();
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class DBConnection {
         try {
             res = stmt.executeQuery(query);
         } catch (SQLException e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
 
         return res;

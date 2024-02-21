@@ -1,6 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class Desk {
     private int deskId;
@@ -15,7 +15,7 @@ public class Desk {
         try {
             setDeskIdHandler(deskId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ public class Desk {
         try {
             setDeskNameHandler(deskName);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 

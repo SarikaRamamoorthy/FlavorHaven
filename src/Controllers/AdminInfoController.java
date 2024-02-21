@@ -32,8 +32,6 @@ public class AdminInfoController {
  
         String md5 = toHex(messageDigest).toString();
  
-        System.out.println(md5);
- 
         return md5;       
     }
 

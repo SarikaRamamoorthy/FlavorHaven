@@ -2,12 +2,14 @@ package Views;
 
 import java.io.Console;
 
+import Utility.InputConsole;
+
 /**
  * Screen
  */
 public interface Screen {
     
-    public static Console console = System.console();
+    public static Console console = InputConsole.console;
 
     static void titleScreen() {
         System.out.println("\r\n" + //

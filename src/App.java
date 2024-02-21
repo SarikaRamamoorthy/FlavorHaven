@@ -1,11 +1,11 @@
 import DatabaseAccessObjects.DBConnection;
-import Utility.ExceptionHandling;
-import Views.AdminLogin;
+import Utility.ExceptionHandler;
+import Views.AdminView;
 
 public class App {  
     public static void main(String[] args) {
         DBConnection.startConnection();
 
-        AdminLogin.adminScreen();
+        AdminView.adminScreen();
     }
 }

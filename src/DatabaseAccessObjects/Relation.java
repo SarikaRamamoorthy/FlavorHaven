@@ -5,7 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 class Relation {
     private static String tableName = "";
@@ -20,7 +20,7 @@ class Relation {
         try {
             setTableNameHandler(tableName);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ class Relation {
         try {
             setTableAttributesHandler(tableAttributes);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ class Relation {
                 throw new Exception("Table columns empty");
             }
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
 
         return columnNames;

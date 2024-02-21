@@ -1,6 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandling;
+import Utility.ExceptionHandler;
 
 public class Order {
     private int deskId;
@@ -16,7 +16,7 @@ public class Order {
         try {
             setDeskIdHandler(deskId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class Order {
         try {
             setDishIdHandler(dishId);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class Order {
         try {
             setQuantityHandler(quantity);
         } catch (Exception e) {
-            ExceptionHandling.specialExceptions(e.getMessage());
+            ExceptionHandler.specialExceptions(e.getMessage());
         }
     }
 

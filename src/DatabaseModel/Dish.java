@@ -1,8 +1,6 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandler;
-
-public class Dish {
+public class Dish implements Comparable<Dish>{
     // to seperate dish parameters
     public static final String seperator = "&";
 
@@ -11,26 +9,22 @@ public class Dish {
     private int price;
     private int typeId;
 
+    public Dish() {
+        // Declared for adding new dishes
+    }
+
     public Dish(int dishId, String dishName, int price, int typeId) {
-        setDishId(dishId);
-        setDishName(dishName);
-        setPrice(price);
-        setTypeId(typeId);
+        this.dishId = dishId;
+        this.dishName = dishName;
+        this.price = price;
+        this.typeId = typeId;
     }
 
     public int getDishId() {
         return dishId;
     }
 
-    public void setDishId(int dishId) {
-        try {
-            setDishIdHandler(dishId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDishIdHandler(int dishId) throws Exception {
+    public void setDishId(int dishId) throws Exception {
         if (dishId >= 1) {
             this.dishId = dishId;
         } else {
@@ -42,16 +36,8 @@ public class Dish {
         return dishName;
     }
 
-    public void setDishName(String dishName) {
-        try {
-            setDishNameHandler(dishName);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDishNameHandler(String dishName) throws Exception {
-        if (dishName != null && !dishName.isEmpty()) {
+    public void setDishName(String dishName) throws Exception {
+        if (dishName != null && !dishName.equals("")) {
             this.dishName = dishName;
         } else {
             throw new Exception("Dish Name is invalid");
@@ -62,15 +48,7 @@ public class Dish {
         return price;
     }
 
-    public void setPrice(int price) {
-        try {
-            setPriceHandler(price);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setPriceHandler(int price) throws Exception {
+    public void setPrice(int price) throws Exception {
         if (price >= 0) {
             this.price = price;
         } else {
@@ -82,16 +60,8 @@ public class Dish {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
-        try {
-            setTypeIdHandler(typeId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setTypeIdHandler(int typeId) throws Exception {
-        if (typeId >= 1) {
+    public void setTypeId(int typeId) throws Exception {
+        if (typeId >= 1 && typeId <= 5) {
             this.typeId = typeId;
         } else {
             throw new Exception("Type Id is invalid");
@@ -107,5 +77,13 @@ public class Dish {
     public boolean equals(Object obj) {
         Dish dish = (Dish) obj;
         return this.dishId == dish.dishId;
+    }
+
+    @Override
+    public int compareTo(Dish o) {
+        if(this.dishId < o.dishId) {
+            return -1;
+        }
+        return 1;
     }
 }

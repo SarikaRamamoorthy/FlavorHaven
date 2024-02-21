@@ -1,7 +1,5 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandler;
-
 public class Order {
     private int deskId;
     private int dishId;
@@ -12,15 +10,7 @@ public class Order {
         return deskId;
     }
 
-    public void setDeskId(int deskId) {
-        try {
-            setDeskIdHandler(deskId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDeskIdHandler(int deskId) throws Exception {
+    public void setDeskId(int deskId) throws Exception {
         if (deskId >= 1) {
             this.deskId = deskId;
         } else {
@@ -32,15 +22,7 @@ public class Order {
         return dishId;
     }
 
-    public void setDishId(int dishId) {
-        try {
-            setDishIdHandler(dishId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDishIdHandler(int dishId) throws Exception {
+    public void setDishId(int dishId) throws Exception {
         if (dishId >= 1) {
             this.dishId = dishId;
         } else {
@@ -52,15 +34,7 @@ public class Order {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        try {
-            setQuantityHandler(quantity);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setQuantityHandler(int quantity) throws Exception {
+    public void setQuantity(int quantity) throws Exception {
         if (quantity >= 1) {
             this.quantity = quantity;
         } else {

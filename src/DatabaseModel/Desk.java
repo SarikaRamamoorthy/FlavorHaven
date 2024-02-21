@@ -1,7 +1,5 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandler;
-
 public class Desk {
     private int deskId;
     private String deskName;
@@ -11,15 +9,7 @@ public class Desk {
         return deskId;
     }
 
-    public void setDeskId(int deskId) {
-        try {
-            setDeskIdHandler(deskId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDeskIdHandler(int deskId) throws Exception {
+    public void setDeskId(int deskId) throws Exception {
         if (deskId >= 1) {
             this.deskId = deskId;
         } else {
@@ -31,15 +21,7 @@ public class Desk {
         return deskName;
     }
 
-    public void setDeskName(String deskName) {
-        try {
-            setDeskNameHandler(deskName);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setDeskNameHandler(String deskName) throws Exception {
+    public void setDeskName(String deskName) throws Exception {
         if (deskName != null && !deskName.isEmpty()) {
             this.deskName = deskName;
         } else {

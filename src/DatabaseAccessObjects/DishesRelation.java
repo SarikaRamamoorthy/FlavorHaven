@@ -48,4 +48,13 @@ public class DishesRelation extends Relation {
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
+
+    public boolean addDishToRelation(Dish dish) {
+        String values = dish.getDishId() + "," + "'" + dish.getDishName() + "'," + dish.getPrice() + "," + dish.getDishTypeId();
+        boolean result = DBConnection.excecuteInsertOne(getTableName(), values);
+        if(result){
+            dishes.add(dish);
+        }
+        return result;
+    }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import DatabaseAccessObjects.AdminInfoRelation;
 import DatabaseModel.Admin;
+import Utility.ExceptionHandler;
 
 public class AdminInfoController {
 
@@ -21,7 +22,15 @@ public class AdminInfoController {
     }
 
     public static boolean verifyLogin(String adminUserName, String adminPassword) {
-        Admin admin = new Admin(ADMINID_PLACEHOLDER, adminUserName, generateMD5Hash(adminPassword));
+        Admin admin = new Admin();
+        try {
+            admin.setAdminId(ADMINID_PLACEHOLDER);
+            admin.setAdminUserName(adminUserName);
+            admin.setAdminPassword(generateMD5Hash(adminPassword));
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+            return false;
+        }
         return admins.contains(admin);
     }
 

@@ -45,7 +45,7 @@ public class AdminView implements Screen {
             console.readLine("Login Successful Press Enter to Continue");
             adminOperations();
         } else {
-            System.out.println("Login Failed Press Enter to Continue");
+            console.readLine("Login Failed Press Enter to Continue");
         }
     }
 
@@ -67,7 +67,6 @@ public class AdminView implements Screen {
                 else if (option == 2) {
                     // View All desks
 
-                    
                 }
 
                 else if (option == 3) {
@@ -98,18 +97,42 @@ public class AdminView implements Screen {
             Screen.clearScreen();
             Table table = DishesController.returnAllDishes();
             System.out.println(FlipTable.of(table.getHeaders(), table.getData()));
-            
+
             System.out.println();
             System.out.println();
             System.out.println("1. Add a dish");
             System.out.println("2. Modify a dish");
             System.out.println("3. Remove a dish");
-
+            System.out.println("4. Exit");
+            System.out.print("Choose from (1/2/3/4): ");
             try {
                 int option = Integer.parseInt(console.readLine());
+                if (option == 1) {
+                    System.out.println("Adding a new Dish");
+                    String dishName = console.readLine("Enter Dish Name: ");
+                    int price = Integer.parseInt(console.readLine("Enter Dish Price: "));
+                    int typeId = Integer.parseInt(console.readLine("Enter Dish type: "));
 
+                    boolean result = DishesController.addNewDish(dishName, price, typeId);
+
+                    if (result) {
+                        console.readLine("Succesfully added :) Press Enter to continue");
+                    }
+
+                } 
+                
+                else if(option == 2) {
+                    System.out.println("Modifying a dish");
+                    int dishId = Integer.parseInt(console.readLine("Enter Dish ID: "));
+
+                    boolean result = DishesController.modifyDish(dishId);
+                }
+
+                else if (option == 4) {
+                    break;
+                }
             } catch (Exception e) {
-                // TODO: handle exception
+                ExceptionHandler.invalidOptionException("Choose a valid Integer");
             }
         }
     }

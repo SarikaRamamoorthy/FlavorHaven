@@ -1,29 +1,19 @@
 package DatabaseModel;
 
-import Utility.ExceptionHandler;
-
 public class Variety {
     private int typeId;
     private String typeName;
 
     public Variety(int typeId, String typeName) {
-        setTypeId(typeId);
-        setTypeName(typeName);
+        this.typeId = typeId;
+        this.typeName = typeName;
     }
 
     public int getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
-        try {
-            setTypeIdHandler(typeId);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setTypeIdHandler(int typeId) throws Exception {
+    public void setTypeId(int typeId) throws Exception {
         if (typeId >= 1) {
             this.typeId = typeId;
         } else {
@@ -35,15 +25,7 @@ public class Variety {
         return typeName;
     }
 
-    public void setTypeName(String typeName) {
-        try {
-            setTypeNameHandler(typeName);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setTypeNameHandler(String typeName) throws Exception {
+    public void setTypeName(String typeName) throws Exception {
         if (typeName != null && !typeName.isEmpty()) {
             this.typeName = typeName;
         } else {

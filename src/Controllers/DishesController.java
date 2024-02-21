@@ -1,11 +1,13 @@
 package Controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import DatabaseAccessObjects.DishesRelation;
 import DatabaseAccessObjects.VarietyRelation;
 import DatabaseModel.Dish;
 import DatabaseModel.Variety;
+import Utility.ExceptionHandler;
 
 public class DishesController {
 
@@ -56,5 +58,24 @@ public class DishesController {
 
         Table table = new Table(headers, data);
         return table;
+    }
+
+    public static boolean addNewDish(String dishName, int price, int typeId) {
+        Dish dish = new Dish();
+        try {
+            dish.setDishId(Collections.max(dishes).getDishId() + 1);
+            dish.setDishName(dishName);
+            dish.setPrice(price);
+            dish.setTypeId(typeId);
+
+            return dishesRelation.addDishToRelation(dish);
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean modifyDish(int dishId) {
+        
     }
 }

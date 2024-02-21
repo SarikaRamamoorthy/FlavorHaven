@@ -44,4 +44,15 @@ public class DBConnection {
         return res;
     }
 
+    public static boolean excecuteInsertOne(String tableName, String values) {
+        String query = "INSERT INTO " + tableName + " VALUES " + "(" + values + ")";
+        try {
+            stmt.execute(query);
+        } catch (SQLException e) {
+            ExceptionHandler.specialExceptions("Unable to Insert data");
+            return false;
+        }
+        return true;
+    }
+
 }

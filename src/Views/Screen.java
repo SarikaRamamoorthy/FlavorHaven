@@ -1,11 +1,15 @@
 package Views;
 
+import java.io.Console;
+
 /**
  * Screen
  */
 public interface Screen {
     
-    default void decor() {
+    public static Console console = System.console();
+
+    static void titleScreen() {
         System.out.println("\r\n" + //
         " ____  __     __   _  _   __  ____    _  _   __   _  _  ____  __ _ \r\n" + //
         "(  __)(  )   / _\\ / )( \\ /  \\(  _ \\  / )( \\ / _\\ / )( \\(  __)(  ( \\\r\n" + //
@@ -14,12 +18,12 @@ public interface Screen {
         "");
     }
 
-    default void clearScreen() {
+    static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    default void clearLine(int lineCount){
+    static void clearLine(int lineCount){
         for (int i = 0; i < lineCount; i++) {
             System.out.print(String.format("\033[%dA",1));
             System.out.print("\033[2K");

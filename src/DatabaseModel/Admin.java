@@ -75,4 +75,10 @@ public class Admin {
             throw new Exception("Admin password invalid");
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Admin admin = (Admin) obj;
+        return this.getAdminUserName().equals(admin.getAdminUserName()) && this.getAdminPassword().equals(admin.getAdminPassword());
+    }
 }

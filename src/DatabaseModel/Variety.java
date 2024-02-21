@@ -6,6 +6,11 @@ public class Variety {
     private int typeId;
     private String typeName;
 
+    public Variety(int typeId, String typeName) {
+        setTypeId(typeId);
+        setTypeName(typeName);
+    }
+
     public int getTypeId() {
         return typeId;
     }

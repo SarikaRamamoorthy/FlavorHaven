@@ -12,7 +12,13 @@ public class AdminInfoController {
 
     private static final int ADMINID_PLACEHOLDER = 13;
     private static String SALT = "1234";
-    private static ArrayList<Admin> admins = AdminInfoRelation.getAdmins();
+    private static AdminInfoRelation adminInfoRelation;
+    private static ArrayList<Admin> admins;
+
+    static {
+        adminInfoRelation = AdminInfoRelation.getInstance();
+        admins = adminInfoRelation.getAdmins();
+    }
 
     public static boolean verifyLogin(String adminUserName, String adminPassword) {
         Admin admin = new Admin(ADMINID_PLACEHOLDER, adminUserName, generateMD5Hash(adminPassword));

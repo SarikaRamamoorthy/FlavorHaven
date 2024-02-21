@@ -9,9 +9,17 @@ import Utility.ExceptionHandler;
 
 public class DishesRelation extends Relation {
 
-    private static ArrayList<Dish> dishes = null;
+    private static DishesRelation dishesRelation;
+    private static ArrayList<Dish> dishes;
 
-    static {
+    public static DishesRelation getInstance() {
+        if(dishesRelation == null) {
+            dishesRelation = new DishesRelation();
+        }
+        return dishesRelation;
+    }
+
+    private DishesRelation() {
         dishes = new ArrayList<>();
         setTableName("dishes");
         ArrayList<String> columnNames = getColumnNames(getTableName());
@@ -24,7 +32,7 @@ public class DishesRelation extends Relation {
         initializeDishes();
     }
 
-    private static void initializeDishes() {
+    private void initializeDishes() {
         try {
             ResultSet results = DBConnection.excecuteSelect("*", getTableName(), null);
             while (results.next()) {
@@ -37,7 +45,7 @@ public class DishesRelation extends Relation {
         }
     }
 
-    public static ArrayList<Dish> getDishes() {
+    public ArrayList<Dish> getDishes() {
         return dishes;
     }
 }

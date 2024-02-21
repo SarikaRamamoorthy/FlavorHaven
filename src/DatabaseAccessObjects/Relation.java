@@ -8,14 +8,14 @@ import java.util.HashMap;
 import Utility.ExceptionHandler;
 
 class Relation {
-    private static String tableName = "";
-    private static HashMap<Integer, String> tableAttributes = null;
+    private String tableName = "";
+    private HashMap<Integer, String> tableAttributes = null;
 
-    public static String getTableName() {
+    public String getTableName() {
         return tableName;
     }
 
-    public static void setTableName(String tableName) {
+    public void setTableName(String tableName) {
         try {
             setTableNameHandler(tableName);
         } catch (Exception e) {
@@ -23,19 +23,19 @@ class Relation {
         }
     }
 
-    private static void setTableNameHandler(String tableName) throws Exception {
+    private void setTableNameHandler(String tableName) throws Exception {
         if (tableName != null && (!tableName.isEmpty())) {
-            Relation.tableName = tableName;
+            this.tableName = tableName;
         } else {
             throw new Exception("Table Name is Invalid");
         }
     }
 
-    public static HashMap<Integer, String> getTableAttributes() {
+    public HashMap<Integer, String> getTableAttributes() {
         return tableAttributes;
     }
 
-    public static void setTableAttributes(HashMap<Integer, String> tableAttributes) {
+    public void setTableAttributes(HashMap<Integer, String> tableAttributes) {
         try {
             setTableAttributesHandler(tableAttributes);
         } catch (Exception e) {
@@ -43,15 +43,15 @@ class Relation {
         }
     }
 
-    private static void setTableAttributesHandler(HashMap<Integer, String> tableAttributes) throws Exception {
+    private void setTableAttributesHandler(HashMap<Integer, String> tableAttributes) throws Exception {
         if (tableAttributes.size() != 0 && tableAttributes != null) {
-            Relation.tableAttributes = tableAttributes;
+            this.tableAttributes = tableAttributes;
         } else {
             throw new Exception("Table Attributes are invalid");
         }
     }
 
-    public static ArrayList<String> getColumnNames(String tableName) {
+    public ArrayList<String> getColumnNames(String tableName) {
         ArrayList<String> columnNames = null;
         ResultSet res = DBConnection.excecuteSelect("*", tableName, null);
         try {

@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrdersRelation extends Relation {
-    static {
+    private static OrdersRelation ordersRelation;
+
+    public static OrdersRelation getInstance() {
+        if(ordersRelation == null) {
+            ordersRelation = new OrdersRelation();
+        }
+        return ordersRelation;
+    }
+
+    private OrdersRelation() {
         setTableName("orders");
         ArrayList<String> columnNames = getColumnNames(getTableName());
         HashMap<Integer, String> map = new HashMap<>();

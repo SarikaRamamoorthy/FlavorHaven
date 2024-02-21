@@ -61,10 +61,7 @@ public class AdminView implements Screen {
                 int option = Integer.parseInt(console.readLine("Choose from (1/2/3/4/5): "));
                 if (option == 1) {
                     // Display dishes
-
-                    Table table = DishesController.returnAllDishes();
-                    System.out.println(FlipTable.of(table.getHeaders(), table.getData()));
-                    console.readLine("Press Enter");
+                    dishOperations();
                 }
 
                 else if (option == 2) {
@@ -92,6 +89,27 @@ public class AdminView implements Screen {
                 e.printStackTrace();
                 ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");
                 ;
+            }
+        }
+    }
+
+    public static void dishOperations() {
+        while (true) {
+            Screen.clearScreen();
+            Table table = DishesController.returnAllDishes();
+            System.out.println(FlipTable.of(table.getHeaders(), table.getData()));
+            
+            System.out.println();
+            System.out.println();
+            System.out.println("1. Add a dish");
+            System.out.println("2. Modify a dish");
+            System.out.println("3. Remove a dish");
+
+            try {
+                int option = Integer.parseInt(console.readLine());
+
+            } catch (Exception e) {
+                // TODO: handle exception
             }
         }
     }

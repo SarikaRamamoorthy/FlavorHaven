@@ -9,9 +9,17 @@ import Utility.ExceptionHandler;
 
 public class AdminInfoRelation extends Relation {
 
-    private static ArrayList<Admin> admins;
+    private static AdminInfoRelation adminRelation;
+    private ArrayList<Admin> admins;
 
-    static {
+    public static AdminInfoRelation getInstance() {
+        if(adminRelation == null) {
+            adminRelation = new AdminInfoRelation();
+        }
+        return adminRelation;
+    }
+
+    private AdminInfoRelation() {
         HashMap<Integer, String> map = new HashMap<>();
         admins = new ArrayList<>();
 
@@ -26,7 +34,7 @@ public class AdminInfoRelation extends Relation {
         initializeAdmins();
     }
 
-    private static void initializeAdmins() {
+    private void initializeAdmins() {
 
         try {
             ResultSet results = DBConnection.excecuteSelect("*", getTableName(), null);
@@ -40,7 +48,7 @@ public class AdminInfoRelation extends Relation {
 
     }
 
-    public static ArrayList<Admin> getAdmins() {
+    public ArrayList<Admin> getAdmins() {
         return admins;
     }
 }

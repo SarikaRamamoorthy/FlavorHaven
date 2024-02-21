@@ -4,7 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DeskRelation extends Relation {
-    static {
+
+    private static DeskRelation deskRelation;
+
+    public static DeskRelation getInstance() {
+        if(deskRelation == null) {
+            deskRelation = new DeskRelation();
+        }
+        return deskRelation;
+    }
+
+    private DeskRelation() {
         setTableName("desk");
         ArrayList<String> columnNames = getColumnNames(getTableName());
         HashMap<Integer, String> map = new HashMap<>();

@@ -13,7 +13,7 @@ public class DishesRelation extends Relation {
     private static ArrayList<Dish> dishes;
 
     public static DishesRelation getInstance() {
-        if(dishesRelation == null) {
+        if (dishesRelation == null) {
             dishesRelation = new DishesRelation();
         }
         return dishesRelation;
@@ -50,11 +50,43 @@ public class DishesRelation extends Relation {
     }
 
     public boolean addDishToRelation(Dish dish) {
-        String values = dish.getDishId() + "," + "'" + dish.getDishName() + "'," + dish.getPrice() + "," + dish.getDishTypeId();
+        String values = dish.getDishId() + "," + "'" + dish.getDishName() + "'," + dish.getPrice() + ","
+                + dish.getDishTypeId();
         boolean result = DBConnection.excecuteInsertOne(getTableName(), values);
-        if(result){
+        if (result) {
             dishes.add(dish);
         }
+        return result;
+    }
+
+    public boolean updateDishInRelation(int dishId, String dishName, int price, int type) {
+        HashMap<Integer, String> attributes = getTableAttributes();
+        String whereCondition = attributes.get(0)+" = "+dishId;
+        String setValues = "";
+
+        if(dishName != null) {
+            setValues += attributes.get(1)+" = '" +dishName+ "'";
+        }
+
+        if(price != -1) {
+            setValues += attributes.get(2)+" = "+price;
+        }
+
+        if(type != -1) {
+            setValues += attributes.get(3)+" = "+type;
+        }
+
+        boolean result = DBConnection.excecuteUpdateOne(getTableName(), setValues, whereCondition);
+
+        return result;
+    }
+
+    public boolean removeDishInRelation(int dishId) {
+        HashMap<Integer, String> attributes = getTableAttributes();
+        String whereCondition = attributes.get(0)+" = "+dishId;
+
+        boolean result = DBConnection.excecuteRemoveOne(getTableName(), whereCondition);
+
         return result;
     }
 }

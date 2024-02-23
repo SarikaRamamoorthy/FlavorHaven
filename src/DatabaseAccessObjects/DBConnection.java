@@ -55,4 +55,28 @@ public class DBConnection {
         return true;
     }
 
+    public static boolean excecuteUpdateOne(String tableName, String setValues, String whereCondition) {
+        String query = "UPDATE " + tableName + " SET " + setValues + " WHERE " + whereCondition;
+
+        try {
+            stmt.execute(query);
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions("Unable to Update data");
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean excecuteRemoveOne(String tableName, String whereCondition) {
+        String query = "DELETE FROM " + tableName + " WHERE " + whereCondition;
+        try {
+            stmt.execute(query);
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions("Unable to remove data");
+            return false;
+        }
+
+        return true;
+    }
 }

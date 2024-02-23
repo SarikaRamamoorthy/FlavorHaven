@@ -1,5 +1,7 @@
 package Controllers;
 
+import com.jakewharton.fliptables.FlipTable;
+
 import Utility.ExceptionHandler;
 
 public class Table {
@@ -47,5 +49,9 @@ public class Table {
             this.data = data;
         else
             throw new Exception("Unable to Set empty data");
+    }
+
+    public void printTable() {
+        System.out.println(FlipTable.of(this.headers, this.data));
     }
 }

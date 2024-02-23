@@ -1,6 +1,7 @@
 package DatabaseModel;
 
 public class Variety {
+    public static String seperator = "&";
     private int typeId;
     private String typeName;
 
@@ -31,5 +32,10 @@ public class Variety {
         } else {
             throw new Exception("Type Name is invalid");
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.typeId+seperator+this.typeName;
     }
 }

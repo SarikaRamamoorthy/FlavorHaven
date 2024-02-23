@@ -5,6 +5,7 @@ import com.jakewharton.fliptables.FlipTable;
 import Controllers.AdminInfoController;
 import Controllers.DishesController;
 import Controllers.Table;
+import Controllers.VarietyController;
 import Utility.ExceptionHandler;
 
 public class AdminView implements Screen {
@@ -95,8 +96,9 @@ public class AdminView implements Screen {
     public static void dishOperations() {
         while (true) {
             Screen.clearScreen();
-            Table table = DishesController.returnAllDishes();
-            System.out.println(FlipTable.of(table.getHeaders(), table.getData()));
+
+            Table dishTable = DishesController.returnAllDishes();
+            dishTable.printTable();
 
             System.out.println();
             System.out.println();
@@ -104,35 +106,108 @@ public class AdminView implements Screen {
             System.out.println("2. Modify a dish");
             System.out.println("3. Remove a dish");
             System.out.println("4. Exit");
-            System.out.print("Choose from (1/2/3/4): ");
             try {
-                int option = Integer.parseInt(console.readLine());
+                int option = Integer.parseInt(console.readLine("Choose from (1/2/3/4): "));
+                System.out.println();
+                System.out.println();
                 if (option == 1) {
+                    
                     System.out.println("Adding a new Dish");
+
+                    Table typeTable = VarietyController.returnAllVarieties();
+                    typeTable.printTable();
+                    
                     String dishName = console.readLine("Enter Dish Name: ");
                     int price = Integer.parseInt(console.readLine("Enter Dish Price: "));
-                    int typeId = Integer.parseInt(console.readLine("Enter Dish type: "));
-
+                    int typeId = Integer.parseInt(console.readLine("Enter Dish type (1/2/3/4/5) : "));
+                    
                     boolean result = DishesController.addNewDish(dishName, price, typeId);
-
+                    
                     if (result) {
                         console.readLine("Succesfully added :) Press Enter to continue");
                     }
-
-                } 
+                    
+                }
                 
-                else if(option == 2) {
-                    System.out.println("Modifying a dish");
+                else if (option == 2) {
+                    System.out.println("Modifying a dish: ");
                     int dishId = Integer.parseInt(console.readLine("Enter Dish ID: "));
+                    System.out.println();
+                    System.out.println();
+                    
+                    Table typeTable = VarietyController.returnAllVarieties();
+                    typeTable.printTable();
+                    
+                    boolean valid = DishesController.isValidDish(dishId);
+                    if (valid) {
+                        System.out.println("1. Modify Name");
+                        System.out.println("2. Modify Price");
+                        System.out.println("3. Modify Type");
+                        System.out.println("4. Exit");
+                        int modifyOption = Integer.parseInt(console.readLine("Choose (1/2/3/4): "));
+                        boolean result = false;
+                        if (modifyOption == 1) {
+                            String modifyName = console.readLine("Enter new Dish Name: ");
+                            result = DishesController.modifyDish(dishId, modifyName, -1, -1);
+                        }
 
-                    boolean result = DishesController.modifyDish(dishId);
+                        else if (modifyOption == 2) {
+                            int price = Integer.parseInt(console.readLine("Enter new Price: "));
+                            result = DishesController.modifyDish(dishId, null, price, -1);
+                        }
+
+                        else if (modifyOption == 3) {
+                            int type = Integer.parseInt(console.readLine("Enter a valid type(1/2/3/4/5) : "));
+                            result = DishesController.modifyDish(dishId, null, -1, type);
+                        }
+
+                        else if (modifyOption == 4) {
+                            break;
+                        }
+
+                        else {
+                            ExceptionHandler.invalidOptionException("Choose from (1/2/3/4) ");
+                        }
+
+                        if (result) {
+                            console.readLine("Dish Modified :) Press Enter");
+                        }
+                    }
+
+                    else {
+                        ExceptionHandler.specialExceptions("Dish ID not found");
+                    }
+                }
+
+                else if (option == 3) {
+                    System.out.println("Removing a dish: ");
+                    int dishId = Integer.parseInt(console.readLine("Enter a Dish ID: "));
+
+                    boolean valid = DishesController.isValidDish(dishId);
+
+                    if (valid) {
+                        boolean result = DishesController.removeDish(dishId);
+                        if (result) {
+                            console.readLine("Dish Removed :) Press Enter ");
+                        }
+                    }
+
+                    else {
+                        ExceptionHandler.specialExceptions("Dish ID not found");
+                    }
                 }
 
                 else if (option == 4) {
                     break;
                 }
-            } catch (Exception e) {
+
+                else {
+                    ExceptionHandler.invalidOptionException("Choose from (1/2/3/4)");
+                }
+            } catch (NumberFormatException e) {
                 ExceptionHandler.invalidOptionException("Choose a valid Integer");
+            } catch (Exception e) {
+                ExceptionHandler.specialExceptions(e.getMessage());
             }
         }
     }

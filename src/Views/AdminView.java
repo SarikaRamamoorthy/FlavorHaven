@@ -3,9 +3,11 @@ package Views;
 import com.jakewharton.fliptables.FlipTable;
 
 import Controllers.AdminInfoController;
+import Controllers.DeskController;
 import Controllers.DishesController;
 import Controllers.Table;
 import Controllers.VarietyController;
+import DatabaseAccessObjects.DeskRelation;
 import Utility.ExceptionHandler;
 
 public class AdminView implements Screen {
@@ -67,7 +69,7 @@ public class AdminView implements Screen {
 
                 else if (option == 2) {
                     // View All desks
-
+                    deskOperations();
                 }
 
                 else if (option == 3) {
@@ -92,7 +94,7 @@ public class AdminView implements Screen {
             }
         }
     }
-
+    
     public static void dishOperations() {
         while (true) {
             Screen.clearScreen();
@@ -113,7 +115,7 @@ public class AdminView implements Screen {
                 if (option == 1) {
                     
                     System.out.println("Adding a new Dish");
-
+                    
                     Table typeTable = VarietyController.returnAllVarieties();
                     typeTable.printTable();
                     
@@ -150,48 +152,48 @@ public class AdminView implements Screen {
                             String modifyName = console.readLine("Enter new Dish Name: ");
                             result = DishesController.modifyDish(dishId, modifyName, -1, -1);
                         }
-
+                        
                         else if (modifyOption == 2) {
                             int price = Integer.parseInt(console.readLine("Enter new Price: "));
                             result = DishesController.modifyDish(dishId, null, price, -1);
                         }
-
+                        
                         else if (modifyOption == 3) {
                             int type = Integer.parseInt(console.readLine("Enter a valid type(1/2/3/4/5) : "));
                             result = DishesController.modifyDish(dishId, null, -1, type);
                         }
-
+                        
                         else if (modifyOption == 4) {
                             break;
                         }
-
+                        
                         else {
                             ExceptionHandler.invalidOptionException("Choose from (1/2/3/4) ");
                         }
-
+                        
                         if (result) {
                             console.readLine("Dish Modified :) Press Enter");
                         }
                     }
-
+                    
                     else {
                         ExceptionHandler.specialExceptions("Dish ID not found");
                     }
                 }
-
+                
                 else if (option == 3) {
                     System.out.println("Removing a dish: ");
                     int dishId = Integer.parseInt(console.readLine("Enter a Dish ID: "));
-
+                    
                     boolean valid = DishesController.isValidDish(dishId);
-
+                    
                     if (valid) {
                         boolean result = DishesController.removeDish(dishId);
                         if (result) {
                             console.readLine("Dish Removed :) Press Enter ");
                         }
                     }
-
+                    
                     else {
                         ExceptionHandler.specialExceptions("Dish ID not found");
                     }
@@ -200,7 +202,7 @@ public class AdminView implements Screen {
                 else if (option == 4) {
                     break;
                 }
-
+                
                 else {
                     ExceptionHandler.invalidOptionException("Choose from (1/2/3/4)");
                 }
@@ -210,5 +212,14 @@ public class AdminView implements Screen {
                 ExceptionHandler.specialExceptions(e.getMessage());
             }
         }
+    }
+    
+    
+    private static void deskOperations() {
+        Screen.clearScreen();
+        Table deskTable = DeskController.returnAllDesks();
+        deskTable.printTable();
+
+        console.readLine(" Press Enter to Exit ");
     }
 }

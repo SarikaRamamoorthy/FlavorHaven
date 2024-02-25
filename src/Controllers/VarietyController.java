@@ -2,9 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 
-import DatabaseAccessObjects.DishesRelation;
 import DatabaseAccessObjects.VarietyRelation;
-import DatabaseModel.Dish;
 import DatabaseModel.Variety;
 
 public class VarietyController {

@@ -2,7 +2,6 @@ package DatabaseAccessObjects;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import DatabaseModel.Variety;
 
@@ -19,15 +18,10 @@ public class VarietyRelation extends Relation {
     }
 
     private VarietyRelation() {
-        HashMap<Integer, String> map = new HashMap<>();
         varieties = new ArrayList<>();
 
         setTableName("variety");
-        ArrayList<String> columnNames = getColumnNames(getTableName());
-        for (int i = 0; i < columnNames.size(); i++) {
-            map.put(i, columnNames.get(i));
-        }
-        setTableAttributes(map);
+        setTableAttributes(getTableName());
 
         initializeVarieties();
     }

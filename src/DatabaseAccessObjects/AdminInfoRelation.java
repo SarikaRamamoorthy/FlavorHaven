@@ -2,7 +2,6 @@ package DatabaseAccessObjects;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import DatabaseModel.Admin;
 import Utility.ExceptionHandler;
@@ -20,15 +19,10 @@ public class AdminInfoRelation extends Relation {
     }
 
     private AdminInfoRelation() {
-        HashMap<Integer, String> map = new HashMap<>();
         admins = new ArrayList<>();
 
         setTableName("admin_info");
-        ArrayList<String> columnNames = getColumnNames(getTableName());
-        for (int i = 0; i < columnNames.size(); i++) {
-            map.put(i, columnNames.get(i));
-        }
-        setTableAttributes(map);
+        setTableAttributes(getTableName());
 
         // Initializing admin relation
         initializeAdmins();

@@ -2,7 +2,6 @@ package DatabaseAccessObjects;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import Utility.ExceptionHandler;
@@ -35,42 +34,23 @@ class Relation {
         return tableAttributes;
     }
 
-    public void setTableAttributes(HashMap<Integer, String> tableAttributes) {
-        try {
-            setTableAttributesHandler(tableAttributes);
-        } catch (Exception e) {
-            ExceptionHandler.specialExceptions(e.getMessage());
-        }
-    }
-
-    private void setTableAttributesHandler(HashMap<Integer, String> tableAttributes) throws Exception {
-        if (tableAttributes.size() != 0 && tableAttributes != null) {
-            this.tableAttributes = tableAttributes;
-        } else {
-            throw new Exception("Table Attributes are invalid");
-        }
-    }
-
-    public ArrayList<String> getColumnNames(String tableName) {
-        ArrayList<String> columnNames = null;
+    public void setTableAttributes(String tableName) {
         ResultSet res = DBConnection.excecuteSelect("*", tableName, null);
         try {
             ResultSetMetaData data = res.getMetaData();
             int columnCount = data.getColumnCount();
-
-            columnNames = new ArrayList<>();
+            
+            tableAttributes = new HashMap<>();
 
             for (int i = 1; i <= columnCount; i++) {
-                columnNames.add(data.getColumnName(i));
+                tableAttributes.put(i-1, data.getColumnName(i));
             }
 
-            if (columnNames.isEmpty()) {
+            if (tableAttributes.isEmpty()) {
                 throw new Exception("Table columns empty");
             }
         } catch (Exception e) {
             ExceptionHandler.specialExceptions(e.getMessage());
         }
-
-        return columnNames;
     }
 }

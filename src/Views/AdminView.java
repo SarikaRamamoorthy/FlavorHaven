@@ -1,13 +1,10 @@
 package Views;
 
-import com.jakewharton.fliptables.FlipTable;
-
 import Controllers.AdminInfoController;
 import Controllers.DeskController;
 import Controllers.DishesController;
 import Controllers.Table;
 import Controllers.VarietyController;
-import DatabaseAccessObjects.DeskRelation;
 import Utility.ExceptionHandler;
 
 public class AdminView implements Screen {
@@ -37,11 +34,8 @@ public class AdminView implements Screen {
 
     public static void loginScreen() {
         Screen.clearScreen();
-        System.out.print("User Name : ");
-        String userName = console.readLine();
-        System.out.println();
-        System.out.print("Password : ");
-        String password = String.valueOf(console.readPassword());
+        String userName = console.readLine("User Name : ");
+        String password = String.valueOf(console.readPassword("Password : "));
 
         boolean result = AdminInfoController.verifyLogin(userName, password);
         if (result) {

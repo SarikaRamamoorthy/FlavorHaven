@@ -8,18 +8,17 @@ public class Desk {
     private int seatCount;
     private boolean reserved;
 
-    public int getDeskId() {
-        return deskId;
-    }
-
-    public Desk(int deskId, String deskName, boolean reserved) {
+    
+    public Desk(int deskId, String deskName, int seatCount, boolean reserved) {
         this.deskId = deskId;
         this.deskName = deskName;
         this.seatCount = seatCount;
         this.reserved = reserved;
     }
-
-    // TODO: getter setter methods for desk
+    
+    public int getDeskId() {
+        return deskId;
+    }
 
     public void setDeskId(int deskId) throws Exception {
         if (deskId >= 1) {
@@ -41,6 +40,10 @@ public class Desk {
         }
     }
 
+    public int getSeatCount() {
+        return this.seatCount;
+    }
+
     public boolean isReserved() {
         return reserved;
     }
@@ -51,6 +54,6 @@ public class Desk {
 
     @Override
     public String toString() {
-        return this.deskId + seperator + this.deskName + seperator + this.reserved;
+        return this.deskId + seperator + this.deskName + seperator + this.seatCount + seperator + this.reserved;
     }
 }

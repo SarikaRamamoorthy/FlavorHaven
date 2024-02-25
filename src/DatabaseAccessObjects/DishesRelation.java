@@ -21,13 +21,9 @@ public class DishesRelation extends Relation {
 
     private DishesRelation() {
         dishes = new ArrayList<>();
+
         setTableName("dishes");
-        ArrayList<String> columnNames = getColumnNames(getTableName());
-        HashMap<Integer, String> map = new HashMap<>();
-        for (int i = 0; i < columnNames.size(); i++) {
-            map.put(i, columnNames.get(i));
-        }
-        setTableAttributes(map);
+        setTableAttributes(getTableName());
 
         initializeDishes();
     }

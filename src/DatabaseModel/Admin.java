@@ -51,6 +51,8 @@ public class Admin {
         }
     }
 
+    // a.equals(b);
+
     @Override
     public boolean equals(Object obj) {
         Admin admin = (Admin) obj;

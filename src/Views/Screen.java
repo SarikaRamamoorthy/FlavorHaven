@@ -21,7 +21,7 @@ public interface Screen {
     }
 
     static void clearScreen() {
-        System.out.print("\033[H\033[2J");
+        System.out.print("\033[2J\033[3J\033[H");
         System.out.flush();
     }
 

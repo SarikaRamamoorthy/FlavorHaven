@@ -30,7 +30,7 @@ public class DeskRelation extends Relation {
         try {
             ResultSet results = DBConnection.excecuteSelect("*", getTableName(), null);
             while (results.next()) {
-                Desk desk = new Desk(results.getInt(1), results.getString(2), results.getInt(3), results.getBoolean(4));
+                Desk desk = new Desk(results.getInt(1), results.getString(2), results.getInt(3), results.getBoolean(4), results.getInt(5));
 
                 desks.add(desk);
             }
@@ -42,4 +42,6 @@ public class DeskRelation extends Relation {
     public ArrayList<Desk> getDesks() {
         return desks;
     }
+
+    
 }

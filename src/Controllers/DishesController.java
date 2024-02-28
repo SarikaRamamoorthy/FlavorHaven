@@ -2,6 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import DatabaseAccessObjects.DishesRelation;
 import DatabaseAccessObjects.VarietyRelation;
@@ -21,6 +22,8 @@ public class DishesController {
         dishes = dishesRelation.getDishes();
         varieties = varietyRelation.getVarieties();
     }
+
+    /** Admin View Methods */
 
     public static Table returnAllDishesWithoutJoin() {
         ArrayList<String> columns = new ArrayList<>(dishesRelation.getTableAttributes().values());
@@ -63,6 +66,20 @@ public class DishesController {
         Dish temp = new Dish();
         temp.setDishId(dishId);
         return dishes.contains(temp);
+    }
+
+    public static boolean isValidDish(int dishId, int typeId) throws Exception {
+        Dish temp = new Dish();
+        temp.setDishId(dishId);
+
+        int index = dishes.indexOf(temp);
+
+        if(index == -1) {
+            return false;
+        }
+        else {
+            return dishes.get(index).getDishTypeId() == typeId;
+        }
     }
 
     public static boolean addNewDish(String dishName, int price, int typeId) throws Exception {
@@ -140,5 +157,29 @@ public class DishesController {
         }
 
         return result;
+    }
+
+    /** Customer View Methods */
+
+    public static Table returnCustomerDish(int type) {
+        List<String> columns = new ArrayList<>(dishesRelation.getTableAttributes().values());
+        columns = columns.subList(0, columns.size() - 1);
+        String[] headers = columns.toArray(new String[3]);
+        ArrayList<String[] > data = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            if(dish.getDishTypeId() == type) {
+                String[] dishRow = new String[3];
+                dishRow[0] = dish.getDishId() + "";
+                dishRow[1] = dish.getDishName();
+                dishRow[2] = dish.getPrice() + "";
+
+                data.add(dishRow);
+            }
+        }
+
+        Table table = new Table(headers, data.toArray(new String[data.size()][]));
+
+        return table;
     }
 }

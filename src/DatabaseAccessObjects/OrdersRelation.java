@@ -1,7 +1,16 @@
 package DatabaseAccessObjects;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import DatabaseModel.Order;
+import Views.CustomerView;
+
 public class OrdersRelation extends Relation {
+
     private static OrdersRelation ordersRelation;
+    private static ArrayList<Order> orders;
 
     public static OrdersRelation getInstance() {
         if(ordersRelation == null) {
@@ -13,5 +22,51 @@ public class OrdersRelation extends Relation {
     private OrdersRelation() {
         setTableName("orders");
         setTableAttributes(getTableName());
+    }
+
+    public void reinitialize() {
+        initializeOrders();
+    }
+    
+    private void initializeOrders() {
+
+        orders = new ArrayList<>();
+
+        try {
+            ResultSet results = DBConnection.excecuteSelect("*", getTableName(), "desk_id = "+CustomerView.CURRENT_DESK_ID);
+            while (results.next()) {
+                Order order = new Order(results.getInt(1), results.getInt(2), results.getInt(3), results.getBoolean(4));
+
+                orders.add(order);
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public boolean addOrderToRelation(Order order) {
+        String values = order.getDeskId() + "," + order.getDishId() + "," + order.getQuantity() + "," + order.isServed();
+
+        boolean result = DBConnection.excecuteInsertOne(getTableName(), values);
+
+        if(result) {
+            orders.add(order);
+        }
+        return result;
+    }
+
+    public boolean updateOrderToRelation(Order order) {
+        HashMap<Integer, String> columns = getTableAttributes();
+        String whereCondition = columns.get(0) + " = " + order.getDeskId() + " AND " + columns.get(1) + " = " + order.getDishId();
+
+        String setValues = columns.get(2) + " = " + order.getQuantity() + ", " + columns.get(3) + " = " + order.isServed();
+
+        boolean result = DBConnection.excecuteUpdateOne(getTableName(), setValues, whereCondition);
+
+        return result;
     }
 }

@@ -51,11 +51,34 @@ public class Admin {
         }
     }
 
-    // a.equals(b);
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((adminUserName == null) ? 0 : adminUserName.hashCode());
+        result = prime * result + ((adminPassword == null) ? 0 : adminPassword.hashCode());
+        return result;
+    }
 
     @Override
     public boolean equals(Object obj) {
-        Admin admin = (Admin) obj;
-        return this.adminUserName.equals(admin.adminUserName) && this.adminPassword.equals(admin.adminPassword);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Admin other = (Admin) obj;
+        if (adminUserName == null) {
+            if (other.adminUserName != null)
+                return false;
+        } else if (!adminUserName.equals(other.adminUserName))
+            return false;
+        if (adminPassword == null) {
+            if (other.adminPassword != null)
+                return false;
+        } else if (!adminPassword.equals(other.adminPassword))
+            return false;
+        return true;
     }
 }

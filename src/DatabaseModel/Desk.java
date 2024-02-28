@@ -7,13 +7,15 @@ public class Desk {
     private String deskName;
     private int seatCount;
     private boolean reserved;
+    private int orderAmount;
 
     
-    public Desk(int deskId, String deskName, int seatCount, boolean reserved) {
+    public Desk(int deskId, String deskName, int seatCount, boolean reserved, int orderAmount) {
         this.deskId = deskId;
         this.deskName = deskName;
         this.seatCount = seatCount;
         this.reserved = reserved;
+        this.orderAmount = orderAmount;
     }
     
     public int getDeskId() {
@@ -52,8 +54,21 @@ public class Desk {
         this.reserved = reserved;
     }
 
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(int orderAmount) throws Exception{
+        if(orderAmount >= 0) {
+            this.orderAmount = orderAmount;
+        }
+        else {
+            throw new Exception(" Order Amount Cannot be negative ");
+        }
+    }
+
     @Override
     public String toString() {
-        return this.deskId + seperator + this.deskName + seperator + this.seatCount + seperator + this.reserved;
+        return this.deskId + seperator + this.deskName + seperator + this.seatCount + seperator + this.reserved + seperator + this.orderAmount;
     }
 }

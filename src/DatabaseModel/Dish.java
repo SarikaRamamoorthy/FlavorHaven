@@ -73,10 +73,28 @@ public class Dish implements Comparable<Dish>{
         return this.dishId + seperator + this.dishName + seperator + this.price + seperator + this.typeId;
     }
 
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + dishId;
+        return result;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        Dish dish = (Dish) obj;
-        return this.dishId == dish.dishId;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Dish other = (Dish) obj;
+        if (dishId != other.dishId)
+            return false;
+        return true;
     }
 
     @Override

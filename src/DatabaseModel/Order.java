@@ -6,6 +6,17 @@ public class Order {
     private int quantity;
     private boolean served;
 
+    public Order() {
+        // For Validating Orders
+    }
+
+    public Order(int deskId, int dishId, int quantity, boolean served) {
+        this.deskId = deskId;
+        this.dishId = dishId;
+        this.quantity = quantity;
+        this.served = served;
+    }
+
     public int getDeskId() {
         return deskId;
     }
@@ -50,4 +61,29 @@ public class Order {
         this.served = served;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + deskId;
+        result = prime * result + dishId;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        if (deskId != other.deskId)
+            return false;
+        if (dishId != other.dishId)
+            return false;
+        return true;
+    }
+    
 }

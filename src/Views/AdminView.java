@@ -82,6 +82,7 @@ public class AdminView implements Screen {
                     ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");
                 }
             } catch (Exception e) {
+                // TODO: Remove after finishing project
                 e.printStackTrace();
                 ExceptionHandler.invalidOptionException("Choose from (1/2/3/4/5)");
                 ;
@@ -94,7 +95,11 @@ public class AdminView implements Screen {
             Screen.clearScreen();
 
             Table dishTable = DishesController.returnAllDishes();
-            dishTable.printTable();
+            try {
+                dishTable.printTable();
+            } catch (Exception e) {
+                ExceptionHandler.specialExceptions("No data present");
+            }
 
             System.out.println();
             System.out.println();
@@ -212,8 +217,12 @@ public class AdminView implements Screen {
     private static void deskOperations() {
         Screen.clearScreen();
         Table deskTable = DeskController.returnAllDesks();
-        deskTable.printTable();
+        try {
+            deskTable.printTable();
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions("No desks available");
+        }
 
-        console.readLine(" Press Enter to Exit ");
+        console.readLine("Press Enter to Exit");
     }
 }

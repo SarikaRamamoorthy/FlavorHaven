@@ -51,7 +51,9 @@ public class Table {
             throw new Exception("Unable to Set empty data");
     }
 
-    public void printTable() {
+    public void printTable() throws Exception {
+        if(data[0] == null)
+        throw new Exception("Table is Empty");
         System.out.println(FlipTable.of(this.headers, this.data));
     }
 }

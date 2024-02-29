@@ -1,6 +1,9 @@
 package DatabaseModel;
 
 public class Order {
+
+    public static final String seperator = "&";
+    
     private int deskId;
     private int dishId;
     private int quantity;
@@ -85,5 +88,9 @@ public class Order {
             return false;
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.deskId + seperator + this.dishId + seperator + this.quantity;
+    }
 }

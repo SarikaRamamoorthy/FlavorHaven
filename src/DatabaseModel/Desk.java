@@ -9,6 +9,9 @@ public class Desk {
     private boolean reserved;
     private int orderAmount;
 
+    public Desk() {
+        // For validating desks
+    }
     
     public Desk(int deskId, String deskName, int seatCount, boolean reserved, int orderAmount) {
         this.deskId = deskId;
@@ -65,6 +68,30 @@ public class Desk {
         else {
             throw new Exception(" Order Amount Cannot be negative ");
         }
+    }
+
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + deskId;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Desk other = (Desk) obj;
+        if (deskId != other.deskId)
+            return false;
+        return true;
     }
 
     @Override

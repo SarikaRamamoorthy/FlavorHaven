@@ -5,6 +5,7 @@ import java.util.List;
 
 import DatabaseAccessObjects.DeskRelation;
 import DatabaseModel.Desk;
+import Utility.ExceptionHandler;
 
 public class DeskController {
     private static DeskRelation deskRelation;
@@ -66,5 +67,82 @@ public class DeskController {
         }
 
         return false;
+    }
+
+    public static boolean reserveDesk(int deskId, boolean reserveValue) {
+        Desk temp = new Desk();
+        try {
+            temp.setDeskId(deskId);
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+        }
+
+        boolean result = deskRelation.reserveDeskInRelation(temp, reserveValue);
+
+        if(result) {
+            Desk desk = desks.get(desks.indexOf(temp));
+            desk.setReserved(reserveValue);
+        }
+
+        return result;
+    }
+
+    public static boolean payAmount(int deskId) {
+        Desk desk = new Desk();
+        int total = 0;
+        try {
+
+            desk.setDeskId(deskId);
+            total = OrdersController.calculateBill(deskId);
+            desk.setOrderAmount(total);
+
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+        }
+
+        boolean result = deskRelation.updatePayInRelation(desk);
+
+        if(result) {
+            Desk currentDesk = desks.get(desks.indexOf(desk));
+            try {
+                currentDesk.setOrderAmount(desk.getOrderAmount());
+            } catch (Exception e) {
+                ExceptionHandler.specialExceptions(e.getMessage());
+            }
+        }
+
+        return result;
+    }
+
+    public static boolean hasAlreadyPaid(int deskId) {
+        Desk temp = new Desk();
+        try {
+            temp.setDeskId(deskId);
+            Desk desk = desks.get(desks.indexOf(temp));
+
+            return desk.getOrderAmount() != 0;
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean markAsPaid(int deskId) {
+        Desk temp = new Desk();
+        try {
+            temp.setDeskId(deskId);
+            Desk desk = desks.get(desks.indexOf(temp));
+            
+            boolean mark = deskRelation.markDeskAsPaidInRelation(desk);
+
+            if(mark) {
+                desk.setOrderAmount(0);
+            }
+
+            return mark;
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+            return false;
+        }
     }
 }

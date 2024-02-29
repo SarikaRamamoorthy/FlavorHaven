@@ -33,10 +33,15 @@ public class CustomerView implements Screen {
                     boolean validDesk = DeskController.isValidDesk(deskId);
 
                     if (validDesk) {
-                        console.readLine("Enjoy your meal :) Press Enter to Continue : ");
-                        CURRENT_DESK_ID = deskId;
-                        OrdersController.reinitialize();
-                        viewMenu();
+                        boolean reservation = DeskController.reserveDesk(deskId, true);
+                        if(reservation) {
+                            console.readLine("Enjoy your meal :) Press Enter to Continue : ");
+                            CURRENT_DESK_ID = deskId;
+                            viewMenu();
+                        }
+                        else {
+                            ExceptionHandler.specialExceptions("Unable to Reserve Desk");
+                        }
                     } else {
                         ExceptionHandler.specialExceptions("Desk Not found");
                     }
@@ -60,6 +65,12 @@ public class CustomerView implements Screen {
     private static void viewMenu() {
         while (true) {
             Screen.clearScreen();
+            boolean waitingForPayment = DeskController.hasAlreadyPaid(CURRENT_DESK_ID);
+
+            if(waitingForPayment) {
+                console.readLine("Please wait while we process your payment :) Press Enter ");
+                continue;
+            }
 
             System.out.println("Our Menu");
             System.out.println("1. Starter");
@@ -95,7 +106,7 @@ public class CustomerView implements Screen {
 
                 else if (option == 6) {
                     try {
-                        Table currentOrderTable = OrdersController.returnCurrentOrders();
+                        Table currentOrderTable = OrdersController.returnCurrentOrders(CURRENT_DESK_ID);
                         currentOrderTable.printTable();
                         console.readLine("Press Enter to Continue ");
                     } catch (Exception e) {
@@ -104,7 +115,27 @@ public class CustomerView implements Screen {
                 }
 
                 else if (option == 7) {
-                    break;
+                    boolean result = OrdersController.isOrderFinished(CURRENT_DESK_ID);
+
+                    if(result) {
+                        console.readLine("Your order is not complete Press Enter to Continue : ");
+                    }
+
+                    else {
+                        Table billTable = OrdersController.returnBill(CURRENT_DESK_ID);
+                        billTable.printTable();
+                        console.readLine("Press Enter to Pay :) ");
+
+                        boolean paymentCheck = DeskController.payAmount(CURRENT_DESK_ID);
+
+                        if(paymentCheck) {
+                            console.readLine("Your payment has been accepted Please wait while we process it :) Press Enter .. ");
+                            continue;
+                        }
+                        else {
+                            console.readLine("Something went wrong with your payment, please try again ... ");
+                        }
+                    }
                 }
 
             } catch (NumberFormatException e) {

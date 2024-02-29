@@ -3,6 +3,7 @@ package Views;
 import Controllers.AdminInfoController;
 import Controllers.DeskController;
 import Controllers.DishesController;
+import Controllers.OrdersController;
 import Controllers.Table;
 import Controllers.VarietyController;
 import Utility.ExceptionHandler;
@@ -68,10 +69,12 @@ public class AdminView implements Screen {
 
                 else if (option == 3) {
                     // View unserved orders
+                    orderOperations();
                 }
 
                 else if (option == 4) {
                     // View unprocessed bills
+                    processBills();
                 }
 
                 else if (option == 5) {
@@ -93,14 +96,14 @@ public class AdminView implements Screen {
     public static void dishOperations() {
         while (true) {
             Screen.clearScreen();
-
+            
             Table dishTable = DishesController.returnAllDishes();
             try {
                 dishTable.printTable();
             } catch (Exception e) {
                 ExceptionHandler.specialExceptions("No data present");
             }
-
+            
             System.out.println();
             System.out.println();
             System.out.println("1. Add a dish");
@@ -197,7 +200,7 @@ public class AdminView implements Screen {
                         ExceptionHandler.specialExceptions("Dish ID not found");
                     }
                 }
-
+                
                 else if (option == 4) {
                     break;
                 }
@@ -213,7 +216,6 @@ public class AdminView implements Screen {
         }
     }
     
-    
     private static void deskOperations() {
         Screen.clearScreen();
         Table deskTable = DeskController.returnAllDesks();
@@ -222,7 +224,123 @@ public class AdminView implements Screen {
         } catch (Exception e) {
             ExceptionHandler.specialExceptions("No desks available");
         }
-
+        
         console.readLine("Press Enter to Exit");
     }
+
+    private static void orderOperations() {
+        while (true) {
+            Screen.clearScreen();
+
+            try {
+
+                System.out.println("1. Serve Orders ");
+                System.out.println("2. Exit");
+
+                int option = Integer.parseInt(console.readLine("Choose from (1/2) : "));
+
+                if(option == 1) {
+                    Table orderTable = OrdersController.returnAllUnservedOrders();
+
+                    try {
+                        orderTable.printTable();
+                    } catch (Exception e) {
+                        ExceptionHandler.specialExceptions("All Orders are served");
+                        continue;
+                    }
+        
+                    int orderId = Integer.parseInt(console.readLine("Enter the Order Id to be marked as Served: "));
+        
+                    boolean isValid = OrdersController.isValidOrder(orderId);
+        
+                    if(isValid) {
+                        boolean marked = OrdersController.markAsServed(orderId);
+                        if(marked) {
+                            console.readLine("Order Marked as Served :) Press Enter to Continue ");
+                            break;
+                        }
+                        else {
+                            console.readLine("Something went Wrong please try again : ");
+                        }
+                    }
+                    else {
+                        console.readLine("Choose a Valid Order ID");
+                    }
+                }
+
+                else if(option == 2) {
+                    break;
+                }
+
+                else {
+                    ExceptionHandler.invalidOptionException("Choose from (1/2) : ");
+                }
+
+            } catch(NumberFormatException e) {
+                ExceptionHandler.specialExceptions("Choose a valid Integer");
+            } catch (Exception e) {
+                ExceptionHandler.invalidOptionException("Choose from (1/2) : ");
+            }
+        }
+    }
+    
+    private static void processBills() {
+
+        while (true) {
+            Screen.clearScreen();
+    
+            System.out.println("1. Calculate bills for ");
+            // TODO: Continue hereh   
+
+            int option = Integer.parseInt(console.readLine(""));
+
+            Table deskTable = DeskController.returnAllDesks();
+    
+            try {
+                deskTable.printTable();
+                int deskId = Integer.parseInt(console.readLine("Enter the Desk ID to process Bills : "));
+    
+                boolean result = DeskController.hasAlreadyPaid(deskId);
+                
+                if(!result) {
+                    
+                    String choice = console.readLine("Confirm bill payment (y/n) : ").toLowerCase();
+    
+                    if (choice.length() != 1) {
+                        throw new Exception("Choose from (y/n) ");
+                    }
+    
+                    if (choice.charAt(0) != 'y') {
+                        return;
+                    }
+    
+                    boolean marked = DeskController.markAsPaid(deskId);
+    
+                    if(marked) {
+                        console.readLine("Order Finished :) Press Enter ");
+                        finishTable(deskId);
+                    } else {
+                        console.readLine("Unable to Finish Order ");
+                    }
+    
+                } else {
+                    console.readLine("Desk Not yet marked as finished :/ ");
+                }
+    
+            } catch(NumberFormatException e) {
+                ExceptionHandler.specialExceptions("Enter a valid Desk ID");
+            } catch (Exception e) {
+                ExceptionHandler.specialExceptions(e.getMessage());
+            }
+        }
+    }
+
+    private static void finishTable(int deskId) {
+        boolean reservation = DeskController.reserveDesk(deskId, false);
+
+        if(reservation) {
+            OrdersController.removeOrdersInDesk(deskId);
+        }
+    }
+
 }

@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import DatabaseModel.Desk;
 import DatabaseModel.Order;
-import Views.CustomerView;
 
 public class OrdersRelation extends Relation {
 
     private static OrdersRelation ordersRelation;
-    private static ArrayList<Order> orders;
+    private ArrayList<Order> orders;
 
     public static OrdersRelation getInstance() {
         if(ordersRelation == null) {
@@ -20,20 +20,18 @@ public class OrdersRelation extends Relation {
     }
 
     private OrdersRelation() {
+        orders = new ArrayList<>();
+
         setTableName("orders");
         setTableAttributes(getTableName());
-    }
 
-    public void reinitialize() {
         initializeOrders();
     }
     
     private void initializeOrders() {
 
-        orders = new ArrayList<>();
-
         try {
-            ResultSet results = DBConnection.excecuteSelect("*", getTableName(), "desk_id = "+CustomerView.CURRENT_DESK_ID);
+            ResultSet results = DBConnection.excecuteSelect("*", getTableName(), null);
             while (results.next()) {
                 Order order = new Order(results.getInt(1), results.getInt(2), results.getInt(3), results.getBoolean(4));
 
@@ -68,5 +66,24 @@ public class OrdersRelation extends Relation {
         boolean result = DBConnection.excecuteUpdateOne(getTableName(), setValues, whereCondition);
 
         return result;
+    }
+
+    public boolean removeOrdersInDeskInRelation(Desk desk) {
+        HashMap<Integer, String> columns = getTableAttributes();
+        String whereCondition = columns.get(0) + " = " + desk.getDeskId();
+        boolean result = DBConnection.excecuteRemoveOne(getTableName(), whereCondition);
+        
+        return result;
+    }
+    
+    public boolean markOrderAsServedInRelation(Order order) {
+        HashMap<Integer, String> columns = getTableAttributes();
+
+        String setValues = columns.get(3) + " = true";
+        String whereCondition = columns.get(0) + " = " + order.getDeskId() + " AND " + columns.get(1) + " = " + order.getDishId();
+
+        boolean markInRelation = DBConnection.excecuteUpdateOne(getTableName(), setValues, whereCondition);
+
+        return markInRelation;
     }
 }

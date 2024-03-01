@@ -251,10 +251,18 @@ public class AdminView implements Screen {
         
                     int orderId = Integer.parseInt(console.readLine("Enter the Order Id to be marked as Served: "));
         
-                    boolean isValid = OrdersController.isValidOrder(orderId);
-        
+                    boolean isValid = OrdersController.isValidOrder(orderId - 1);
+
+                    
                     if(isValid) {
-                        boolean marked = OrdersController.markAsServed(orderId);
+
+                        boolean served = OrdersController.isServed(orderId - 1);
+                        if(served) {
+                            console.readLine("Order already served :) Press Enter ");
+                            continue;
+                        }
+                        
+                        boolean marked = OrdersController.markAsServed(orderId - 1);
                         if(marked) {
                             console.readLine("Order Marked as Served :) Press Enter to Continue ");
                             break;
@@ -289,44 +297,64 @@ public class AdminView implements Screen {
         while (true) {
             Screen.clearScreen();
     
-            System.out.println("1. Calculate bills for ");
-            // TODO: Continue hereh   
-
-            int option = Integer.parseInt(console.readLine(""));
-
-            Table deskTable = DeskController.returnAllDesks();
-    
             try {
-                deskTable.printTable();
-                int deskId = Integer.parseInt(console.readLine("Enter the Desk ID to process Bills : "));
-    
-                boolean result = DeskController.hasAlreadyPaid(deskId);
-                
-                if(!result) {
+                System.out.println("1. Calculate bills for Desks ");
+                System.out.println("2. Exit");
+
+                int option = Integer.parseInt(console.readLine("Choose from (1/2) : "));
+
+                if(option == 1) {
+
+                    Table deskTable = DeskController.returnAllDesks();
+            
+                        deskTable.printTable();
+                        int deskId = Integer.parseInt(console.readLine("Enter the Desk ID to process Bills : "));
+            
+                        boolean booked = DeskController.isReserved(deskId);
+
+                        if(!booked) {
+                            console.readLine("Desk Not yet reserved :) Press Enter");
+                            continue;
+                        }
+
+                        boolean result = DeskController.hasAlreadyPaid(deskId);
+                        
+                        if(result) {
+                            
+                            String choice = console.readLine("Confirm bill payment (y/n) : ").toLowerCase();
+            
+                            if (choice.length() != 1) {
+                                throw new Exception("Choose from (y/n) ");
+                            }
+            
+                            if (choice.charAt(0) != 'y') {
+                                return;
+                            }
+            
+                            boolean marked = DeskController.markAsPaid(deskId);
+            
+                            if(marked) {
+                                console.readLine("Order Finished :) Press Enter ");
+                                finishTable(deskId);
+                            } else {
+                                console.readLine("Unable to Finish Order ");
+                            }
+            
+                        } else {
+                            console.readLine("Desk Not yet marked as finished :/ ");
+                        }
+            
+                        
+                    }
                     
-                    String choice = console.readLine("Confirm bill payment (y/n) : ").toLowerCase();
-    
-                    if (choice.length() != 1) {
-                        throw new Exception("Choose from (y/n) ");
+                    else if(option == 2) {
+                        break;
                     }
-    
-                    if (choice.charAt(0) != 'y') {
-                        return;
+                    
+                    else {
+                        ExceptionHandler.invalidOptionException("Choose from (1/2) ");
                     }
-    
-                    boolean marked = DeskController.markAsPaid(deskId);
-    
-                    if(marked) {
-                        console.readLine("Order Finished :) Press Enter ");
-                        finishTable(deskId);
-                    } else {
-                        console.readLine("Unable to Finish Order ");
-                    }
-    
-                } else {
-                    console.readLine("Desk Not yet marked as finished :/ ");
-                }
-    
+                
             } catch(NumberFormatException e) {
                 ExceptionHandler.specialExceptions("Enter a valid Desk ID");
             } catch (Exception e) {

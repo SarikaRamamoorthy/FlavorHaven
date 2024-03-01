@@ -145,4 +145,17 @@ public class DeskController {
             return false;
         }
     }
+
+    public static boolean isReserved(int deskId) {
+        Desk temp = new Desk();
+        try {
+            temp.setDeskId(deskId);
+            Desk desk = desks.get(desks.indexOf(temp));
+
+            return desk.isReserved();
+        } catch (Exception e) {
+            ExceptionHandler.specialExceptions(e.getMessage());
+            return false;
+        }
+    }
 }

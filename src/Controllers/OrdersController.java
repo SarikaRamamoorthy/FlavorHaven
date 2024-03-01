@@ -234,6 +234,10 @@ public class OrdersController {
         return orderId >= 0 && orderId < orders.size();
     }
 
+    public static boolean isServed(int orderId) {
+        return orders.get(orderId).isServed();
+    }
+
     public static boolean markAsServed(int orderId) {
         Order order = orders.get(orderId);
         boolean marked = ordersRelation.markOrderAsServedInRelation(order);

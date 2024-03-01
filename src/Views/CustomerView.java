@@ -117,7 +117,7 @@ public class CustomerView implements Screen {
                 else if (option == 7) {
                     boolean result = OrdersController.isOrderFinished(CURRENT_DESK_ID);
 
-                    if(result) {
+                    if(!result) {
                         console.readLine("Your order is not complete Press Enter to Continue : ");
                     }
 
